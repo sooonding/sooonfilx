@@ -9,6 +9,7 @@ const Title = styled.span``;
 const Grid = styled.div``;
 
 const Section = ({ title, children }) => {
+  console.log("section :", title, children);
   return (
     <Container>
       <Title>{title}</Title>
