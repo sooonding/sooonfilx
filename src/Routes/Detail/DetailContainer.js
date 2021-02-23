@@ -32,13 +32,13 @@ const DetailContainer = (props) => {
     }
 
     // movieDetail,tvDetail을 위한 데이터 통신 로직
-    
+
     try {
       if (isMovie) {
-        const {data} = await moviesApi.movieDetail(parseId);
-        console.log(data)
+        const { data } = await moviesApi.movieDetail(parseId);
+        console.log(data);
       } else {
-        const {data} = await tvApi.showDetail(parseId);
+        const { data } = await tvApi.showDetail(parseId);
       }
     } catch {
       setValues({ ...values, error: "해당 url이 없습니다." });

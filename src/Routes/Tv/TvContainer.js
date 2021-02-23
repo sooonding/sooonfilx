@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Tvpresenter from "./Tvpresenter";
-import { tvApi } from 'api';
+import { tvApi } from "api";
 
 const TvContainer = () => {
   const [state, setState] = useState({
@@ -11,22 +11,27 @@ const TvContainer = () => {
     error: null,
   });
 
-  useEffect(async() => {
-    try{
-      const {data: {results : topRated}} = await tvApi.topRated();
-      const {data : {results : popular}} = await tvApi.popular();
-      const {data : {results : airingToday}} = await tvApi.airingToday();
+  useEffect(async () => {
+    try {
+      const {
+        data: { results: topRated },
+      } = await tvApi.topRated();
+      const {
+        data: { results: popular },
+      } = await tvApi.popular();
+      const {
+        data: { results: airingToday },
+      } = await tvApi.airingToday();
 
-      setState({...state, topRated , popular, airingToday});
-
-    }catch{
-      setState({...state, error : "tv 해당정보를 찾을수없습니다."})
-    }finally{
-      setState({...state, loading : false})
+      setState({ ...state, topRated, popular, airingToday });
+    } catch {
+      setState({ ...state, error: "tv 해당정보를 찾을수없습니다." });
+    } finally {
+      setState({ ...state, loading: false });
     }
-  },[])
+  }, []);
 
-  console.log(state,'useEffect')
+  console.log(state, "useEffect");
 
   const { topRated, popular, airingToday, loading, error } = state;
   return (
