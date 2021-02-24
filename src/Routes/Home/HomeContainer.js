@@ -20,10 +20,11 @@ const HomeContainer = () => {
       // const {
       //   data: { results: nowPlaying },
       // } = await moviesApi.nowPlaying();
+
       const {
         data: { results: nowPlaying },
       } = await moviesApi.nowPlaying();
-
+      // null => 배열 => null
       const {
         data: { results: upcoming },
       } = await moviesApi.upcoming();
@@ -32,26 +33,28 @@ const HomeContainer = () => {
         data: { results: popular },
       } = await moviesApi.popular();
 
-      setValues({ ...values, nowPlaying, popular, upcoming });
-    } catch {
       setValues({
         ...values,
+        nowPlaying: nowPlaying,
+        popular: popular,
+        upcoming: upcoming,
+        loading: false,
+      });
+    } catch {
+      setValues({
+        //로딩 트루
+        ...values,
+        loading: false,
         error: "요청하신 무비의 정보를 찾을 수 없습니다.",
       });
-    } finally {
-      /* 
-    NOTE 주의! finally는 주의해서 사용해야 할 거 같다  
-    차라리 try나 catch문에서 loading에 관한 state를 변경하는 것이 나을 거 같다.
-    */
-      if (error !== null) {
-        setValues({ ...values, loading: false });
-      }
     }
-  }, []);
+  }, [values]);
+
+  console.log(values, "아웃 스테이트");
 
   useEffect(() => {
     initData();
-  }, [initData]);
+  }, []);
 
   return (
     <div>

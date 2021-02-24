@@ -23,11 +23,13 @@ const TvContainer = () => {
         data: { results: airingToday },
       } = await tvApi.airingToday();
 
-      setState({ ...state, topRated, popular, airingToday });
+      setState({ ...state, topRated, popular, airingToday, loading: false });
     } catch {
-      setState({ ...state, error: "tv 해당정보를 찾을수없습니다." });
-    } finally {
-      setState({ ...state, loading: false });
+      setState({
+        ...state,
+        loading: false,
+        error: "tv 해당정보를 찾을수없습니다.",
+      });
     }
   }, []);
 
